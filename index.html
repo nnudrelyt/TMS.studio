@@ -3,14 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>mainsequence.studio — Wireframe</title>
+  <title>The Main Sequence &mdash; Studio</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream-bg:   #FAF7F2;
+      --cream-hero: #F2EDE5;
+      --white:      #ffffff;
+      --dark-txt:   #1D1A17;
+      --mid-txt:    #8A837D;
+      --light-txt:  #B0A89E;
+      --terra:      #C4522A;
+      --border:     #E5E0D8;
+      --radius: 2px;
+    }
     body {
       font-family: 'Helvetica Neue', Helvetica, 'Segoe UI', Arial, sans-serif;
-      line-height: 1.45;
-      background: #FAF7F2;
-      color: #1D1A17;
+      font-size: 14px;
+      line-height: 1.7;
+      background: var(--cream-bg);
+      color: var(--dark-txt);
+      -webkit-font-smoothing: antialiased;
     }
 
     /* NAV */
@@ -18,294 +31,194 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 48px;
-      background: #FAF7F2;
-      border-bottom: 1px solid #E5E0D8;
+      padding: 14px 3rem;
+      background: var(--cream-bg);
+      border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
       z-index: 100;
     }
-    .logo {
-      font-size: 16px;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      color: #1D1A17;
-      text-decoration: none;
-    }
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      list-style: none;
-      align-items: center;
-    }
-    .nav-links a {
-      text-decoration: none;
-      font-size: 14px;
-      color: #8A837D;
-    }
-    .nav-links a:hover { color: #1D1A17; }
+    .logo { font-size: 15px; font-weight: 600; letter-spacing: 0.03em; color: var(--dark-txt); text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
+    .nav-links a { text-decoration: none; font-size: 13px; font-weight: 500; color: var(--mid-txt); }
+    .nav-links a:hover { color: var(--dark-txt); }
     .btn-nav {
-      border: 1px solid #C4522A;
-      color: #C4522A;
-      padding: 8px 18px;
-      font-size: 14px;
+      border: 1px solid var(--terra);
+      color: var(--terra);
+      padding: 7px 16px;
+      font-size: 13px;
+      font-weight: 600;
       text-decoration: none;
+      border-radius: var(--radius);
     }
     .btn-nav:hover { background: rgba(196,82,42,0.06); }
 
+    /* SECTION WRAPPER */
+    .sec { max-width: 1100px; margin: 0 auto; padding: 3.5rem 3rem; }
+
     /* HERO */
-    .hero {
-      background: #F2EDE5;
-      padding: 108px 48px 92px;
-    }
+    .hero { background: var(--cream-hero); }
     .eyebrow {
-      font-size: 13px;
-      letter-spacing: 0.13em;
+      font-size: 11px;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #C4522A;
-      margin-bottom: 18px;
+      color: var(--terra);
+      margin-bottom: 14px;
+      font-weight: 700;
     }
     .hero h1 {
-      font-size: clamp(48px, 6.5vw, 82px);
-      font-weight: 400;
-      line-height: 1.1;
-      color: #1D1A17;
-      max-width: 820px;
-      margin-bottom: 26px;
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--dark-txt);
+      max-width: 680px;
+      margin-bottom: 16px;
     }
     .hero p {
-      font-size: 19px;
-      line-height: 1.7;
-      color: #8A837D;
-      max-width: 520px;
-      margin-bottom: 40px;
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--mid-txt);
+      max-width: 460px;
+      margin-bottom: 26px;
     }
     .btn {
       display: inline-block;
-      padding: 13px 26px;
-      font-size: 15px;
-      font-weight: 500;
+      padding: 11px 22px;
+      font-size: 13px;
+      font-weight: 700;
       cursor: pointer;
       text-decoration: none;
-      background: #C4522A;
+      background: var(--terra);
       color: #fff;
-    }
-    .btn:hover { opacity: 0.9; }
-
-    /* SECTIONS */
-    section { padding: 84px 48px; }
-    section.cream { background: #FAF7F2; }
-    section.white { background: #fff; }
-
-    .section-eyebrow {
-      font-size: 13px;
-      letter-spacing: 0.13em;
+      letter-spacing: 0.04em;
       text-transform: uppercase;
-      color: #C4522A;
-      margin-bottom: 18px;
+      border-radius: var(--radius);
     }
+    .btn:hover { opacity: 0.88; }
 
-    h2 {
-      font-size: clamp(32px, 4.5vw, 54px);
-      font-weight: 400;
-      line-height: 1.15;
-      color: #1D1A17;
-      margin-bottom: 16px;
-    }
-    .section-sub {
-      font-size: 18px;
-      line-height: 1.7;
-      color: #8A837D;
-      max-width: 580px;
-      margin-top: 6px;
-    }
+    /* SECTION HEADINGS */
+    .sec-h { margin-bottom: 2rem; }
+    .sec-h .eyebrow { margin-bottom: 10px; }
+    .sec-h h2 { font-size: 26px; font-weight: 700; line-height: 1.2; color: var(--dark-txt); margin-bottom: 8px; }
+    .sec-h p { font-size: 14px; line-height: 1.7; color: var(--mid-txt); max-width: 520px; }
+    .sec-h p::after { content: ''; display: block; width: 36px; height: 2px; background: var(--terra); margin-top: 12px; }
+
+    /* BG VARIANTS */
+    .bg-white { background: var(--white); }
+    .bg-cream { background: var(--cream-bg); }
+    .bg-hero  { background: var(--cream-hero); }
 
     /* PHILOSOPHY */
     .philosophy-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 64px;
+      gap: 48px;
       align-items: start;
     }
-    .philosophy-grid p {
-      font-size: 19px;
-      line-height: 1.7;
-      color: #8A837D;
-      margin-bottom: 18px;
-    }
+    .philosophy-grid p { font-size: 14px; line-height: 1.75; color: var(--mid-txt); margin-bottom: 14px; }
     .philosophy-grid p:last-child { margin-bottom: 0; }
+    .philosophy-h { font-size: 26px; font-weight: 700; line-height: 1.2; color: var(--dark-txt); margin-bottom: 8px; }
 
     .pillars-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 22px;
-      margin-top: 48px;
-      padding-top: 40px;
-      border-top: 1px solid #E5E0D8;
+      gap: 16px;
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
     }
-    .pillar-label {
-      font-size: 12px;
-      letter-spacing: 0.11em;
-      text-transform: uppercase;
-      color: #C4522A;
-      margin-bottom: 8px;
-    }
-    .pillar-text {
-      font-size: 15px;
-      color: #8A837D;
-      line-height: 1.65;
-    }
+    .pillar-label { font-size: 11px; letter-spacing: 0.11em; text-transform: uppercase; color: var(--terra); margin-bottom: 7px; font-weight: 700; }
+    .pillar-text { font-size: 13px; color: var(--mid-txt); line-height: 1.65; }
 
     /* SERVICES */
     .services-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-      margin-top: 44px;
+      gap: 14px;
     }
-    .service-card {
-      border: 1px solid #E5E0D8;
-      padding: 28px;
-      background: #fff;
-    }
-    .service-card h3 {
-      font-size: 19px;
-      font-weight: 500;
-      color: #1D1A17;
-      margin-bottom: 12px;
-    }
-    .service-card p {
-      font-size: 16px;
-      line-height: 1.65;
-      color: #8A837D;
-      margin-bottom: 16px;
-    }
-    .service-card ul {
-      font-size: 14px;
-      color: #B0A89E;
-      padding-left: 16px;
-      line-height: 2;
-    }
+    .service-card { border: 1px solid var(--border); padding: 1.4rem; background: var(--white); }
+    .service-card h3 { font-size: 15px; font-weight: 700; color: var(--dark-txt); margin-bottom: 8px; }
+    .service-card p { font-size: 13px; line-height: 1.65; color: var(--mid-txt); margin-bottom: 14px; }
+    .service-card ul { font-size: 13px; color: var(--light-txt); padding-left: 16px; line-height: 2; }
 
     /* WORK */
     .work-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 22px;
-      margin-top: 36px;
+      gap: 14px;
     }
     .work-tile {
       aspect-ratio: 4 / 3;
       display: flex;
       align-items: flex-end;
-      padding: 20px;
+      padding: 1.25rem;
     }
-    .work-cat {
-      font-size: 12px;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: #6B6660;
-    }
-    .work-name {
-      font-size: 18px;
-      font-weight: 400;
-      color: #1D1A17;
-      margin-top: 5px;
-    }
+    .work-cat { font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--mid-txt); font-weight: 600; }
+    .work-name { font-size: 15px; font-weight: 700; color: var(--dark-txt); margin-top: 4px; }
 
     /* PROCESS */
-    .steps { margin-top: 44px; }
+    .steps { }
     .step {
       display: flex;
-      gap: 24px;
-      padding: 28px 0;
-      border-top: 1px solid #E5E0D8;
-      max-width: 640px;
+      gap: 20px;
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--border);
+      max-width: 600px;
     }
-    .step-num {
-      font-size: 42px;
-      font-weight: 300;
-      color: #D8D3CB;
-      min-width: 52px;
-      line-height: 1;
-    }
-    .step h3 {
-      font-size: 18px;
-      font-weight: 500;
-      color: #1D1A17;
-      margin-bottom: 7px;
-    }
-    .step p {
-      font-size: 16px;
-      line-height: 1.65;
-      color: #8A837D;
-    }
+    .step:last-child { border-bottom: 1px solid var(--border); }
+    .step-num { font-size: 36px; font-weight: 300; color: #D8D3CB; min-width: 46px; line-height: 1; }
+    .step h3 { font-size: 15px; font-weight: 700; color: var(--dark-txt); margin-bottom: 5px; }
+    .step p { font-size: 13px; line-height: 1.65; color: var(--mid-txt); }
 
     /* QUOTE */
     .quote-wrap {
-      max-width: 620px;
-      margin: 0 auto;
-      border-left: 2px solid #C4522A;
-      padding: 4px 0 4px 28px;
+      max-width: 580px;
+      border-left: 2px solid var(--terra);
+      padding: 4px 0 4px 24px;
     }
-    blockquote {
-      font-size: 26px;
-      font-weight: 300;
-      line-height: 1.5;
-      color: #1D1A17;
-      margin-bottom: 14px;
-      font-style: italic;
-    }
-    cite {
-      font-size: 14px;
-      color: #8A837D;
-      font-style: normal;
-    }
+    blockquote { font-size: 22px; font-weight: 400; line-height: 1.55; color: var(--dark-txt); margin-bottom: 12px; font-style: italic; }
+    cite { font-size: 13px; color: var(--mid-txt); font-style: normal; }
 
-    /* CTA */
-    .cta {
-      background: #F2EDE5;
-      padding: 84px 48px;
-      text-align: center;
-      border-top: 1px solid #E5E0D8;
+    /* CTA BAND */
+    .cta-band { background: var(--terra); padding: 3.5rem 3rem; text-align: center; }
+    .cta-band h2 { font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 8px; line-height: 1.2; }
+    .cta-band p { font-size: 15px; color: rgba(255,255,255,0.75); margin-bottom: 22px; max-width: 380px; margin-left: auto; margin-right: auto; line-height: 1.65; }
+    .btn-white {
+      display: inline-block;
+      padding: 11px 24px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      background: #fff;
+      color: var(--terra);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: var(--radius);
     }
-    .cta h2 {
-      font-size: clamp(28px, 4vw, 48px);
-      font-weight: 400;
-      color: #1D1A17;
-      margin-bottom: 14px;
-    }
-    .cta p {
-      color: #8A837D;
-      font-size: 18px;
-      margin-bottom: 32px;
-    }
+    .btn-white:hover { opacity: 0.92; }
 
     /* FOOTER */
     footer {
-      background: #F2EDE5;
-      padding: 32px 48px;
+      background: var(--cream-hero);
+      padding: 1.75rem 3rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-top: 1px solid #E5E0D8;
+      border-top: 1px solid var(--border);
     }
-    footer span {
-      color: #B0A89E;
-      font-size: 13px;
-    }
+    footer span { color: var(--light-txt); font-size: 12px; }
 
     @media (max-width: 900px) {
-      .philosophy-grid { grid-template-columns: 1fr; gap: 32px; }
+      .philosophy-grid { grid-template-columns: 1fr; gap: 24px; }
       .pillars-row { grid-template-columns: repeat(2, 1fr); }
       .services-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 640px) {
-      nav { padding: 16px 24px; }
-      .hero, section { padding: 64px 24px; }
+      nav { padding: 14px 1.25rem; }
+      .sec { padding: 2.5rem 1.25rem; }
       .pillars-row, .services-grid, .work-grid { grid-template-columns: 1fr; }
-      .cta { padding: 64px 24px; }
-      footer { padding: 28px 24px; flex-direction: column; gap: 8px; text-align: center; }
+      .cta-band { padding: 2.5rem 1.25rem; }
+      footer { padding: 1.5rem 1.25rem; flex-direction: column; gap: 8px; text-align: center; }
     }
   </style>
 </head>
@@ -323,168 +236,188 @@
 
   <!-- HERO -->
   <div class="hero">
-    <div class="eyebrow">Creative Studio · Chicago</div>
-    <h1>Design that does something.</h1>
-    <p>The Main Sequence Studio partners with organizations that have something real to say — and helps them say it with clarity, intention, and craft.</p>
-    <a href="#" class="btn">Tell us about your project →</a>
+    <div class="sec">
+      <div class="eyebrow">Creative Studio &middot; Chicago</div>
+      <h1>Design that does something.</h1>
+      <p>We partner with organizations that have something real to say &mdash; and help them say it with clarity, intention, and craft.</p>
+      <a href="#" class="btn">Tell us about your project &rarr;</a>
+    </div>
   </div>
 
   <!-- PHILOSOPHY -->
-  <section class="white">
-    <div class="philosophy-grid">
-      <div>
-        <div class="section-eyebrow">Studio philosophy</div>
-        <h2>Design without strategy is decoration.</h2>
+  <div class="bg-white" style="border-top: 1px solid var(--border);">
+    <div class="sec">
+      <div class="philosophy-grid">
+        <div>
+          <div class="eyebrow">Studio philosophy</div>
+          <p class="philosophy-h">Design without strategy is decoration.</p>
+        </div>
+        <div style="padding-top: 6px;">
+          <p>The most powerful creative is built on the clearest strategy. Before we design anything, we understand what you&rsquo;re trying to accomplish &mdash; and for whom.</p>
+          <p>That&rsquo;s what separates work that gets attention from work that gets results.</p>
+        </div>
       </div>
-      <div style="padding-top: 8px;">
-        <p>We believe the most powerful creative is built on the clearest strategy. Before we design anything, we understand what you're trying to accomplish — and for whom.</p>
-        <p>That's what separates work that gets attention from work that gets results.</p>
+      <div class="pillars-row">
+        <div>
+          <div class="pillar-label">Purpose</div>
+          <p class="pillar-text">Every project starts with a clear understanding of what you&rsquo;re trying to accomplish and why it matters.</p>
+        </div>
+        <div>
+          <div class="pillar-label">Partnership</div>
+          <p class="pillar-text">We work as an extension of your team. The creative process works best when it&rsquo;s genuinely collaborative.</p>
+        </div>
+        <div>
+          <div class="pillar-label">Performance</div>
+          <p class="pillar-text">Beautiful work that doesn&rsquo;t convert, connect, or hold up is just decoration. We design with outcomes in mind.</p>
+        </div>
+        <div>
+          <div class="pillar-label">Perspective</div>
+          <p class="pillar-text">We bring a cross-sector creative point of view &mdash; and challenge assumptions when the work demands it.</p>
+        </div>
       </div>
     </div>
-    <div class="pillars-row">
-      <div>
-        <div class="pillar-label">Purpose</div>
-        <p class="pillar-text">Every project starts with a clear understanding of what you're trying to accomplish and why it matters.</p>
-      </div>
-      <div>
-        <div class="pillar-label">Partnership</div>
-        <p class="pillar-text">We work as an extension of your team. The creative process works best when it's genuinely collaborative.</p>
-      </div>
-      <div>
-        <div class="pillar-label">Performance</div>
-        <p class="pillar-text">Beautiful work that doesn't convert, connect, or hold up is just decoration. We design with outcomes in mind.</p>
-      </div>
-      <div>
-        <div class="pillar-label">Perspective</div>
-        <p class="pillar-text">We bring a cross-sector creative point of view — and we're not afraid to challenge assumptions in service of the work.</p>
-      </div>
-    </div>
-  </section>
+  </div>
 
   <!-- SERVICES -->
-  <section class="cream">
-    <div class="section-eyebrow">Capabilities</div>
-    <h2>What we make.<br>What it does.</h2>
-    <div class="services-grid">
-      <div class="service-card">
-        <h3>Brand Identity & Design Systems</h3>
-        <p>Logo and visual identity, brand standards, style guides, and design systems that hold up across every surface and scale.</p>
-        <ul>
-          <li>Visual identity development</li>
-          <li>Brand standards & guidelines</li>
-          <li>Brand voice & tone</li>
-          <li>Design system architecture</li>
-        </ul>
+  <div class="bg-cream" style="border-top: 1px solid var(--border);">
+    <div class="sec">
+      <div class="sec-h">
+        <div class="eyebrow">Capabilities</div>
+        <h2>What we make. What it does.</h2>
+        <p>Three practice areas &mdash; each built around producing work that performs, not just work that looks good.</p>
       </div>
-      <div class="service-card">
-        <h3>Website Design</h3>
-        <p>UX/UI design grounded in conversion intent — not just aesthetic preference. We design sites that work as hard as they look.</p>
-        <ul>
-          <li>UX/UI design & wireframing</li>
-          <li>Visual design for dev handoff</li>
-          <li>Landing page design</li>
-          <li>Conversion-focused layouts</li>
-        </ul>
-      </div>
-      <div class="service-card">
-        <h3>Marketing Communications</h3>
-        <p>Campaign concepting, copywriting, and art direction — integrated from the start, not bolted on at the end.</p>
-        <ul>
-          <li>Campaign concepting & direction</li>
-          <li>Copy integrated with design</li>
-          <li>Print & digital collateral</li>
-          <li>Email & social assets</li>
-        </ul>
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>Brand Identity &amp; Design Systems</h3>
+          <p>You get a visual identity that holds up across every surface and scale &mdash; logo, brand standards, style guides, and a design system built to grow with you.</p>
+          <ul>
+            <li>Visual identity development</li>
+            <li>Brand standards &amp; guidelines</li>
+            <li>Brand voice &amp; tone</li>
+            <li>Design system architecture</li>
+          </ul>
+        </div>
+        <div class="service-card">
+          <h3>Website Design</h3>
+          <p>UX/UI design grounded in conversion intent &mdash; not just aesthetic preference. You get a site that works as hard as it looks.</p>
+          <ul>
+            <li>UX/UI design &amp; wireframing</li>
+            <li>Visual design for dev handoff</li>
+            <li>Landing page design</li>
+            <li>Conversion-focused layouts</li>
+          </ul>
+        </div>
+        <div class="service-card">
+          <h3>Marketing Communications</h3>
+          <p>Campaign concepting, copywriting, and art direction &mdash; integrated from the start, not bolted on at the end.</p>
+          <ul>
+            <li>Campaign concepting &amp; direction</li>
+            <li>Copy integrated with design</li>
+            <li>Print &amp; digital collateral</li>
+            <li>Email &amp; social assets</li>
+          </ul>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- WORK -->
-  <section class="white">
-    <div class="section-eyebrow">Featured Work</div>
-    <h2>A few things we've done.</h2>
-    <div class="work-grid">
-      <div class="work-tile" style="background: #D4C9BC;">
-        <div>
-          <div class="work-cat">Brand Identity · Manufacturing</div>
-          <div class="work-name">Foundry Art — Linden Workshops</div>
-        </div>
+  <div class="bg-white" style="border-top: 1px solid var(--border);">
+    <div class="sec">
+      <div class="sec-h">
+        <div class="eyebrow">Featured Work</div>
+        <h2>A few things we&rsquo;ve done.</h2>
       </div>
-      <div class="work-tile" style="background: #C8D4CF;">
-        <div>
-          <div class="work-cat">Brand Identity · Arts & Culture</div>
-          <div class="work-name">Chicago Sinfonietta — Ignite Season</div>
+      <div class="work-grid">
+        <div class="work-tile" style="background: #D4C9BC;">
+          <div>
+            <div class="work-cat">Brand Identity &middot; Manufacturing</div>
+            <div class="work-name">Foundry Art &mdash; Linden Workshops</div>
+          </div>
         </div>
-      </div>
-      <div class="work-tile" style="background: #E0D5C8;">
-        <div>
-          <div class="work-cat">Website Redesign · Legal</div>
-          <div class="work-name">Chicago Real Estate Attorney</div>
+        <div class="work-tile" style="background: #C8D4CF;">
+          <div>
+            <div class="work-cat">Brand Identity &middot; Arts &amp; Culture</div>
+            <div class="work-name">Chicago Sinfonietta &mdash; Ignite Season</div>
+          </div>
         </div>
-      </div>
-      <div class="work-tile" style="background: #D8CECE;">
-        <div>
-          <div class="work-cat">Brand & Design System · Fitness</div>
-          <div class="work-name">Tease Dance & Fitness</div>
+        <div class="work-tile" style="background: #E0D5C8;">
+          <div>
+            <div class="work-cat">Website Redesign &middot; Legal</div>
+            <div class="work-name">Chicago Real Estate Attorney</div>
+          </div>
+        </div>
+        <div class="work-tile" style="background: #D8CECE;">
+          <div>
+            <div class="work-cat">Brand &amp; Design System &middot; Fitness</div>
+            <div class="work-name">Tease Dance &amp; Fitness</div>
+          </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- PROCESS -->
-  <section class="cream">
-    <div class="section-eyebrow">Process</div>
-    <h2>No black boxes.<br>No surprises.</h2>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <div>
-          <h3>Discovery</h3>
-          <p>We start with questions, not answers. Stakeholder conversations, competitive context, and a clear articulation of what success looks like for this particular project and this particular organization.</p>
-        </div>
+  <div class="bg-cream" style="border-top: 1px solid var(--border);">
+    <div class="sec">
+      <div class="sec-h">
+        <div class="eyebrow">Process</div>
+        <h2>No black boxes. No surprises.</h2>
+        <p>From the first conversation to final delivery, you&rsquo;ll always know where things stand &mdash; and why we&rsquo;re making the decisions we&rsquo;re making.</p>
       </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <div>
-          <h3>Strategy</h3>
-          <p>Before a single mark is made, we establish the positioning, messaging, and creative direction that will guide everything downstream. This is the hardest work — and the most valuable.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div>
+            <h3>Discovery</h3>
+            <p>We start with questions, not answers. Stakeholder conversations, competitive context, and a clear articulation of what success looks like for this project and this organization.</p>
+          </div>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <div>
-          <h3>Creative development</h3>
-          <p>Concepts are developed, presented, and refined collaboratively. We build toward conviction — not consensus for its own sake — so the final direction is one everyone can champion.</p>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div>
+            <h3>Strategy</h3>
+            <p>Before a single mark is made, we establish the positioning, messaging, and creative direction that will guide everything downstream. This is the hardest work &mdash; and the most valuable.</p>
+          </div>
         </div>
-      </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <div>
-          <h3>Delivery & handoff</h3>
-          <p>Final assets, guidelines, and documentation delivered in formats your team can actually use. We stay available after delivery because that's what partners do.</p>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div>
+            <h3>Creative development</h3>
+            <p>Concepts are developed, presented, and refined collaboratively. We build toward conviction &mdash; not consensus for its own sake &mdash; so the final direction is one everyone can champion.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div>
+            <h3>Delivery &amp; handoff</h3>
+            <p>Final assets, guidelines, and documentation delivered in formats your team can actually use. We stay available after delivery because that&rsquo;s what partners do.</p>
+          </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- QUOTE -->
-  <section class="white">
-    <div class="quote-wrap">
-      <blockquote>"The work didn't just look right — it felt like us. That's harder to pull off than most agencies admit."</blockquote>
-      <cite>— Arts institution client, Chicago</cite>
+  <div class="bg-white" style="border-top: 1px solid var(--border);">
+    <div class="sec">
+      <div class="quote-wrap">
+        <blockquote>&ldquo;The work didn&rsquo;t just look right &mdash; it felt like us. That&rsquo;s harder to pull off than most agencies admit.&rdquo;</blockquote>
+        <cite>&mdash; Arts institution client, Chicago</cite>
+      </div>
     </div>
-  </section>
+  </div>
 
-  <!-- CTA -->
-  <div class="cta">
-    <h2>Let's talk about your project.</h2>
-    <p>Tell us where you are — or just where you're stuck. We'll take it from there.</p>
-    <a href="#" class="btn">Start a project →</a>
+  <!-- CTA BAND -->
+  <div class="cta-band">
+    <h2>Let&rsquo;s talk about your project.</h2>
+    <p>Tell us where you are &mdash; or just where you&rsquo;re stuck. We&rsquo;ll take it from there.</p>
+    <a href="#" class="btn-white">Start a project &rarr;</a>
   </div>
 
   <footer>
-    <span>© 2025 The Main Sequence LLC · Chicago, IL</span>
-    <span>mainsequence.consulting · mainsequence.studio</span>
+    <span>&copy; 2025 The Main Sequence LLC &middot; Chicago, IL</span>
+    <span>mainsequence.consulting &middot; mainsequence.studio</span>
   </footer>
 
 </body>

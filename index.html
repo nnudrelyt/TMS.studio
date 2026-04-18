@@ -4,421 +4,322 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Main Sequence &mdash; Studio</title>
+  <link rel="stylesheet" href="https://use.typekit.net/ixj4arx.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --cream-bg:   #FAF7F2;
-      --cream-hero: #F2EDE5;
-      --white:      #ffffff;
-      --dark-txt:   #1D1A17;
-      --mid-txt:    #8A837D;
-      --light-txt:  #B0A89E;
-      --terra:      #C4522A;
-      --border:     #E5E0D8;
-      --radius: 2px;
+
+    html, body {
+      width: 100%;
+      height: 100%;
     }
+
     body {
-      font-family: 'Helvetica Neue', Helvetica, 'Segoe UI', Arial, sans-serif;
-      font-size: 14px;
-      line-height: 1.7;
-      background: var(--cream-bg);
-      color: var(--dark-txt);
+      background: #C8D47A;
+      font-family: 'brandon-grotesque', 'Helvetica Neue', Helvetica, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
       -webkit-font-smoothing: antialiased;
+      gap: 2rem;
     }
 
-    /* NAV */
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 3rem;
-      background: var(--cream-bg);
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+    #globe-wrap {
+      position: relative;
+      cursor: grab;
+      flex-shrink: 0;
     }
-    .logo { font-size: 15px; font-weight: 600; letter-spacing: 0.03em; color: var(--dark-txt); text-decoration: none; }
-    .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
-    .nav-links a { text-decoration: none; font-size: 13px; font-weight: 500; color: var(--mid-txt); }
-    .nav-links a:hover { color: var(--dark-txt); }
-    .btn-nav {
-      border: 1px solid var(--terra);
-      color: var(--terra);
-      padding: 7px 16px;
-      font-size: 13px;
-      font-weight: 600;
-      text-decoration: none;
-      border-radius: var(--radius);
-    }
-    .btn-nav:hover { background: rgba(196,82,42,0.06); }
 
-    /* SECTION WRAPPER */
-    .sec { padding: 3.5rem 3rem; }
+    #globe-wrap:active { cursor: grabbing; }
 
-    /* HERO */
-    .hero { background: var(--cream-hero); }
-    .eyebrow {
+    #globe-canvas { display: block; }
+
+    #globe-hint {
+      position: absolute;
+      bottom: -1.75rem;
+      left: 50%;
+      transform: translateX(-50%);
       font-size: 11px;
-      letter-spacing: 0.12em;
+      font-weight: 500;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--terra);
-      margin-bottom: 14px;
-      font-weight: 700;
+      color: rgba(26, 23, 16, 0.4);
+      white-space: nowrap;
+      pointer-events: none;
     }
-    .hero h1 {
-      font-size: clamp(48px, 6.5vw, 82px);
-      font-weight: 400;
-      line-height: 1.1;
-      color: var(--dark-txt);
-      max-width: 820px;
-      margin-bottom: 16px;
-    }
-    .hero p {
-      font-size: 15px;
-      line-height: 1.75;
-      color: var(--mid-txt);
-      max-width: 460px;
-      margin-bottom: 26px;
-    }
-    .btn {
-      display: inline-block;
-      padding: 11px 22px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
-      background: var(--terra);
-      color: #fff;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      border-radius: var(--radius);
-    }
-    .btn:hover { opacity: 0.88; }
 
-    /* SECTION HEADINGS */
-    .sec-h { margin-bottom: 2rem; }
-    .sec-h .eyebrow { margin-bottom: 10px; }
-    .sec-h h2 { font-size: clamp(32px, 4.5vw, 54px); font-weight: 400; line-height: 1.15; color: var(--dark-txt); margin-bottom: 8px; }
-    .sec-h p { font-size: 14px; line-height: 1.7; color: var(--mid-txt); max-width: 520px; }
-    .sec-h p::after { content: ''; display: block; width: 36px; height: 2px; background: var(--terra); margin-top: 12px; }
-
-    /* BG VARIANTS */
-    .bg-white { background: var(--white); }
-    .bg-cream { background: var(--cream-bg); }
-    .bg-hero  { background: var(--cream-hero); }
-
-    /* PHILOSOPHY */
-    .philosophy-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: start;
-    }
-    .philosophy-grid p { font-size: 14px; line-height: 1.75; color: var(--mid-txt); margin-bottom: 14px; }
-    .philosophy-grid p:last-child { margin-bottom: 0; }
-    .philosophy-h { font-size: clamp(32px, 4.5vw, 54px); font-weight: 400; line-height: 1.15; color: var(--dark-txt); margin-bottom: 8px; }
-
-    .pillars-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-top: 2.5rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-    }
-    .pillar-label { font-size: 11px; letter-spacing: 0.11em; text-transform: uppercase; color: var(--terra); margin-bottom: 7px; font-weight: 700; }
-    .pillar-text { font-size: 13px; color: var(--mid-txt); line-height: 1.65; }
-
-    /* SERVICES */
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-    }
-    .service-card { border: 1px solid var(--border); padding: 1.4rem; background: var(--white); }
-    .service-card h3 { font-size: 15px; font-weight: 700; color: var(--dark-txt); margin-bottom: 8px; }
-    .service-card p { font-size: 13px; line-height: 1.65; color: var(--mid-txt); margin-bottom: 14px; }
-    .service-card ul { font-size: 13px; color: var(--light-txt); padding-left: 16px; line-height: 2; }
-
-    /* WORK */
-    .work-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-    }
-    .work-tile {
-      aspect-ratio: 4 / 3;
+    #globe-loading {
+      position: absolute;
+      inset: 0;
       display: flex;
-      align-items: flex-end;
-      padding: 1.25rem;
-    }
-    .work-cat { font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--mid-txt); font-weight: 600; }
-    .work-name { font-size: 15px; font-weight: 700; color: var(--dark-txt); margin-top: 4px; }
-
-    /* PROCESS */
-    .steps { }
-    .step {
-      display: flex;
-      gap: 20px;
-      padding: 1.5rem 0;
-      border-top: 1px solid var(--border);
-      max-width: 600px;
-    }
-    .step:last-child { border-bottom: 1px solid var(--border); }
-    .step-num { font-size: 36px; font-weight: 300; color: #D8D3CB; min-width: 46px; line-height: 1; }
-    .step h3 { font-size: 15px; font-weight: 700; color: var(--dark-txt); margin-bottom: 5px; }
-    .step p { font-size: 13px; line-height: 1.65; color: var(--mid-txt); }
-
-    /* QUOTE */
-    .quote-wrap {
-      max-width: 580px;
-      border-left: 2px solid var(--terra);
-      padding: 4px 0 4px 24px;
-    }
-    blockquote { font-size: 22px; font-weight: 400; line-height: 1.55; color: var(--dark-txt); margin-bottom: 12px; font-style: italic; }
-    cite { font-size: 13px; color: var(--mid-txt); font-style: normal; }
-
-    /* CTA BAND */
-    .cta-band { background: var(--terra); padding: 3.5rem 3rem; text-align: center; }
-    .cta-band h2 { font-size: clamp(28px, 4vw, 48px); font-weight: 400; color: #fff; margin-bottom: 8px; line-height: 1.15; }
-    .cta-band p { font-size: 15px; color: rgba(255,255,255,0.75); margin-bottom: 22px; max-width: 380px; margin-left: auto; margin-right: auto; line-height: 1.65; }
-    .btn-white {
-      display: inline-block;
-      padding: 11px 24px;
-      font-size: 13px;
-      font-weight: 700;
-      text-decoration: none;
-      background: #fff;
-      color: var(--terra);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      border-radius: var(--radius);
-    }
-    .btn-white:hover { opacity: 0.92; }
-
-    /* FOOTER */
-    footer {
-      background: var(--cream-hero);
-      padding: 1.75rem 3rem;
-      display: flex;
-      justify-content: space-between;
       align-items: center;
-      border-top: 1px solid var(--border);
+      justify-content: center;
+      pointer-events: none;
     }
-    footer span { color: var(--light-txt); font-size: 12px; }
 
-    @media (max-width: 900px) {
-      .philosophy-grid { grid-template-columns: 1fr; gap: 24px; }
-      .pillars-row { grid-template-columns: repeat(2, 1fr); }
-      .services-grid { grid-template-columns: 1fr 1fr; }
+    #globe-loading span {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      animation: pulse 1.4s ease-in-out infinite;
     }
-    @media (max-width: 640px) {
-      nav { padding: 14px 1.25rem; }
-      .sec { padding: 2.5rem 1.25rem; }
-      .pillars-row, .services-grid, .work-grid { grid-template-columns: 1fr; }
-      .cta-band { padding: 2.5rem 1.25rem; }
-      footer { padding: 1.5rem 1.25rem; flex-direction: column; gap: 8px; text-align: center; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; }
+      50%       { opacity: 1;   }
+    }
+
+    .site-id {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .site-name {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #1A1710;
+    }
+
+    .site-tagline {
+      font-size: 15px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      color: rgba(26, 23, 16, 0.55);
     }
   </style>
 </head>
 <body>
 
-  <nav>
-    <a class="logo" href="#">The Main Sequence</a>
-    <ul class="nav-links">
-      <li><a href="#">About</a></li>
-      <li><a href="#">Work</a></li>
-      <li><a href="#">Services</a></li>
-      <li><a href="#" class="btn-nav">Contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- HERO -->
-  <div class="hero">
-    <div class="sec">
-      <div class="eyebrow">Creative Studio &middot; Chicago</div>
-      <h1>Design that does something.</h1>
-      <p>We partner with organizations that have something real to say &mdash; and help them say it with clarity, intention, and craft.</p>
-      <a href="#" class="btn">Tell us about your project &rarr;</a>
-    </div>
+  <div id="globe-wrap">
+    <canvas id="globe-canvas"></canvas>
+    <div id="globe-loading"><span>Loading&hellip;</span></div>
+    <div id="globe-hint">Drag to rotate &middot; Scroll to zoom</div>
   </div>
 
-  <!-- PHILOSOPHY -->
-  <div class="bg-white" style="border-top: 1px solid var(--border);">
-    <div class="sec">
-      <div class="philosophy-grid">
-        <div>
-          <div class="eyebrow">Studio philosophy</div>
-          <p class="philosophy-h">Design without strategy is decoration.</p>
-        </div>
-        <div style="padding-top: 6px;">
-          <p>The most powerful creative is built on the clearest strategy. Before we design anything, we understand what you&rsquo;re trying to accomplish &mdash; and for whom.</p>
-          <p>That&rsquo;s what separates work that gets attention from work that gets results.</p>
-        </div>
-      </div>
-      <div class="pillars-row">
-        <div>
-          <div class="pillar-label">Purpose</div>
-          <p class="pillar-text">Every project starts with a clear understanding of what you&rsquo;re trying to accomplish and why it matters.</p>
-        </div>
-        <div>
-          <div class="pillar-label">Partnership</div>
-          <p class="pillar-text">We work as an extension of your team. The creative process works best when it&rsquo;s genuinely collaborative.</p>
-        </div>
-        <div>
-          <div class="pillar-label">Performance</div>
-          <p class="pillar-text">Beautiful work that doesn&rsquo;t convert, connect, or hold up is just decoration. We design with outcomes in mind.</p>
-        </div>
-        <div>
-          <div class="pillar-label">Perspective</div>
-          <p class="pillar-text">We bring a cross-sector creative point of view &mdash; and challenge assumptions when the work demands it.</p>
-        </div>
-      </div>
-    </div>
+  <div class="site-id">
+    <div class="site-name">mainsequence.studio</div>
+    <div class="site-tagline">The creative arm of The Main Sequence</div>
   </div>
 
-  <!-- SERVICES -->
-  <div class="bg-cream" style="border-top: 1px solid var(--border);">
-    <div class="sec">
-      <div class="sec-h">
-        <div class="eyebrow">Capabilities</div>
-        <h2>What we make. What it does.</h2>
-        <p>Three practice areas &mdash; each built around producing work that performs, not just work that looks good.</p>
-      </div>
-      <div class="services-grid">
-        <div class="service-card">
-          <h3>Brand Identity &amp; Design Systems</h3>
-          <p>You get a visual identity that holds up across every surface and scale &mdash; logo, brand standards, style guides, and a design system built to grow with you.</p>
-          <ul>
-            <li>Visual identity development</li>
-            <li>Brand standards &amp; guidelines</li>
-            <li>Brand voice &amp; tone</li>
-            <li>Design system architecture</li>
-          </ul>
-        </div>
-        <div class="service-card">
-          <h3>Website Design</h3>
-          <p>UX/UI design grounded in conversion intent &mdash; not just aesthetic preference. You get a site that works as hard as it looks.</p>
-          <ul>
-            <li>UX/UI design &amp; wireframing</li>
-            <li>Visual design for dev handoff</li>
-            <li>Landing page design</li>
-            <li>Conversion-focused layouts</li>
-          </ul>
-        </div>
-        <div class="service-card">
-          <h3>Marketing Communications</h3>
-          <p>Campaign concepting, copywriting, and art direction &mdash; integrated from the start, not bolted on at the end.</p>
-          <ul>
-            <li>Campaign concepting &amp; direction</li>
-            <li>Copy integrated with design</li>
-            <li>Print &amp; digital collateral</li>
-            <li>Email &amp; social assets</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script>
+    (function () {
 
-  <!-- WORK -->
-  <div class="bg-white" style="border-top: 1px solid var(--border);">
-    <div class="sec">
-      <div class="sec-h">
-        <div class="eyebrow">Featured Work</div>
-        <h2>A few things we&rsquo;ve done.</h2>
-      </div>
-      <div class="work-grid">
-        <div class="work-tile" style="background: #D4C9BC;">
-          <div>
-            <div class="work-cat">Brand Identity &middot; Manufacturing</div>
-            <div class="work-name">Foundry Art &mdash; Linden Workshops</div>
-          </div>
-        </div>
-        <div class="work-tile" style="background: #C8D4CF;">
-          <div>
-            <div class="work-cat">Brand Identity &middot; Arts &amp; Culture</div>
-            <div class="work-name">Chicago Sinfonietta &mdash; Ignite Season</div>
-          </div>
-        </div>
-        <div class="work-tile" style="background: #E0D5C8;">
-          <div>
-            <div class="work-cat">Website Redesign &middot; Legal</div>
-            <div class="work-name">Chicago Real Estate Attorney</div>
-          </div>
-        </div>
-        <div class="work-tile" style="background: #D8CECE;">
-          <div>
-            <div class="work-cat">Brand &amp; Design System &middot; Fitness</div>
-            <div class="work-name">Tease Dance &amp; Fitness</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+      const canvas  = document.getElementById('globe-canvas');
+      const loading = document.getElementById('globe-loading');
+      const ctx     = canvas.getContext('2d');
+      const dpr     = window.devicePixelRatio || 1;
 
-  <!-- PROCESS -->
-  <div class="bg-cream" style="border-top: 1px solid var(--border);">
-    <div class="sec">
-      <div class="sec-h">
-        <div class="eyebrow">Process</div>
-        <h2>No black boxes. No surprises.</h2>
-        <p>From the first conversation to final delivery, you&rsquo;ll always know where things stand &mdash; and why we&rsquo;re making the decisions we&rsquo;re making.</p>
-      </div>
-      <div class="steps">
-        <div class="step">
-          <div class="step-num">01</div>
-          <div>
-            <h3>Discovery</h3>
-            <p>We start with questions, not answers. Stakeholder conversations, competitive context, and a clear articulation of what success looks like for this project and this organization.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">02</div>
-          <div>
-            <h3>Strategy</h3>
-            <p>Before a single mark is made, we establish the positioning, messaging, and creative direction that will guide everything downstream. This is the hardest work &mdash; and the most valuable.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">03</div>
-          <div>
-            <h3>Creative development</h3>
-            <p>Concepts are developed, presented, and refined collaboratively. We build toward conviction &mdash; not consensus for its own sake &mdash; so the final direction is one everyone can champion.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">04</div>
-          <div>
-            <h3>Delivery &amp; handoff</h3>
-            <p>Final assets, guidelines, and documentation delivered in formats your team can actually use. We stay available after delivery because that&rsquo;s what partners do.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+      // Responsive: fill most of the shorter viewport dimension
+      const size   = Math.min(window.innerWidth - 48, window.innerHeight - 200, 560);
+      const radius = size / 2.15;
 
-  <!-- QUOTE -->
-  <div class="bg-white" style="border-top: 1px solid var(--border);">
-    <div class="sec">
-      <div class="quote-wrap">
-        <blockquote>&ldquo;The work didn&rsquo;t just look right &mdash; it felt like us. That&rsquo;s harder to pull off than most agencies admit.&rdquo;</blockquote>
-        <cite>&mdash; Arts institution client, Chicago</cite>
-      </div>
-    </div>
-  </div>
+      canvas.width  = size * dpr;
+      canvas.height = size * dpr;
+      canvas.style.width  = size + 'px';
+      canvas.style.height = size + 'px';
+      ctx.scale(dpr, dpr);
 
-  <!-- CTA BAND -->
-  <div class="cta-band">
-    <h2>Let&rsquo;s talk about your project.</h2>
-    <p>Tell us where you are &mdash; or just where you&rsquo;re stuck. We&rsquo;ll take it from there.</p>
-    <a href="#" class="btn-white">Start a project &rarr;</a>
-  </div>
+      const projection = d3.geoOrthographic()
+        .scale(radius)
+        .translate([size / 2, size / 2])
+        .clipAngle(90);
 
-  <footer>
-    <span>&copy; 2025 The Main Sequence LLC &middot; Chicago, IL</span>
-    <span>mainsequence.consulting &middot; mainsequence.studio</span>
-  </footer>
+      const path = d3.geoPath().projection(projection).context(ctx);
+
+      // ── Point-in-polygon ───────────────────────────────────────────────
+
+      function pointInRing(point, ring) {
+        const [x, y] = point;
+        let inside = false;
+        for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+          const [xi, yi] = ring[i];
+          const [xj, yj] = ring[j];
+          if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) {
+            inside = !inside;
+          }
+        }
+        return inside;
+      }
+
+      function pointInFeature(point, feature) {
+        const geom = feature.geometry;
+        if (geom.type === 'Polygon') {
+          if (!pointInRing(point, geom.coordinates[0])) return false;
+          for (let i = 1; i < geom.coordinates.length; i++) {
+            if (pointInRing(point, geom.coordinates[i])) return false;
+          }
+          return true;
+        }
+        if (geom.type === 'MultiPolygon') {
+          for (const poly of geom.coordinates) {
+            if (pointInRing(point, poly[0])) {
+              let inHole = false;
+              for (let i = 1; i < poly.length; i++) {
+                if (pointInRing(point, poly[i])) { inHole = true; break; }
+              }
+              if (!inHole) return true;
+            }
+          }
+          return false;
+        }
+        return false;
+      }
+
+      function dotsForFeature(feature, spacing = 16) {
+        const dots = [];
+        const [[minLng, minLat], [maxLng, maxLat]] = d3.geoBounds(feature);
+        const step = spacing * 0.08;
+        for (let lng = minLng; lng <= maxLng; lng += step) {
+          for (let lat = minLat; lat <= maxLat; lat += step) {
+            if (pointInFeature([lng, lat], feature)) dots.push([lng, lat]);
+          }
+        }
+        return dots;
+      }
+
+      // ── Render ─────────────────────────────────────────────────────────
+
+      let landFeatures = null;
+      const allDots    = [];
+
+      function render() {
+        ctx.clearRect(0, 0, size, size);
+
+        const sc = projection.scale();
+        const sf = sc / radius;
+
+        // Ocean
+        ctx.beginPath();
+        ctx.arc(size / 2, size / 2, sc, 0, 2 * Math.PI);
+        ctx.fillStyle   = '#000000';
+        ctx.fill();
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth   = 2 * sf;
+        ctx.stroke();
+
+        if (!landFeatures) return;
+
+        // Graticule
+        ctx.beginPath();
+        path(d3.geoGraticule()());
+        ctx.strokeStyle  = '#ffffff';
+        ctx.lineWidth    = 0.8 * sf;
+        ctx.globalAlpha  = 0.2;
+        ctx.stroke();
+        ctx.globalAlpha  = 1;
+
+        // Land outlines
+        ctx.beginPath();
+        landFeatures.features.forEach(f => path(f));
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth   = 0.9 * sf;
+        ctx.stroke();
+
+        // Halftone land dots
+        allDots.forEach(([lng, lat]) => {
+          const p = projection([lng, lat]);
+          if (p && p[0] >= 0 && p[0] <= size && p[1] >= 0 && p[1] <= size) {
+            ctx.beginPath();
+            ctx.arc(p[0], p[1], 1.15 * sf, 0, 2 * Math.PI);
+            ctx.fillStyle = '#999999';
+            ctx.fill();
+          }
+        });
+      }
+
+      // ── Load GeoJSON ───────────────────────────────────────────────────
+
+      fetch('https://raw.githubusercontent.com/martynafford/natural-earth-geojson/refs/heads/master/110m/physical/ne_110m_land.json')
+        .then(r => { if (!r.ok) throw new Error('fetch failed'); return r.json(); })
+        .then(data => {
+          landFeatures = data;
+          data.features.forEach(f => dotsForFeature(f, 16).forEach(d => allDots.push(d)));
+          loading.style.display = 'none';
+          render();
+        })
+        .catch(() => {
+          loading.innerHTML = '<span>Failed to load map data</span>';
+        });
+
+      // ── Auto-rotation ──────────────────────────────────────────────────
+
+      const rot = [0, 0];
+      let autoRotate = true;
+
+      d3.timer(() => {
+        if (autoRotate) {
+          rot[0] += 0.4;
+          projection.rotate(rot);
+          render();
+        }
+      });
+
+      // ── Mouse drag ─────────────────────────────────────────────────────
+
+      canvas.addEventListener('mousedown', e => {
+        autoRotate = false;
+        const sx = e.clientX, sy = e.clientY;
+        const sr = [...rot];
+
+        const onMove = e => {
+          rot[0] = sr[0] + (e.clientX - sx) * 0.5;
+          rot[1] = Math.max(-90, Math.min(90, sr[1] - (e.clientY - sy) * 0.5));
+          projection.rotate(rot);
+          render();
+        };
+        const onUp = () => {
+          document.removeEventListener('mousemove', onMove);
+          document.removeEventListener('mouseup',   onUp);
+          setTimeout(() => { autoRotate = true; }, 20);
+        };
+        document.addEventListener('mousemove', onMove);
+        document.addEventListener('mouseup',   onUp);
+      });
+
+      // ── Touch drag ─────────────────────────────────────────────────────
+
+      canvas.addEventListener('touchstart', e => {
+        autoRotate = false;
+        const t  = e.touches[0];
+        const sx = t.clientX, sy = t.clientY;
+        const sr = [...rot];
+
+        const onMove = e => {
+          const t = e.touches[0];
+          rot[0] = sr[0] + (t.clientX - sx) * 0.5;
+          rot[1] = Math.max(-90, Math.min(90, sr[1] - (t.clientY - sy) * 0.5));
+          projection.rotate(rot);
+          render();
+        };
+        const onEnd = () => {
+          canvas.removeEventListener('touchmove', onMove);
+          canvas.removeEventListener('touchend',  onEnd);
+          setTimeout(() => { autoRotate = true; }, 20);
+        };
+        canvas.addEventListener('touchmove', onMove, { passive: true });
+        canvas.addEventListener('touchend',  onEnd);
+      }, { passive: true });
+
+      // ── Scroll zoom ────────────────────────────────────────────────────
+
+      canvas.addEventListener('wheel', e => {
+        e.preventDefault();
+        const factor   = e.deltaY > 0 ? 0.92 : 1.09;
+        const newScale = Math.max(radius * 0.5, Math.min(radius * 3, projection.scale() * factor));
+        projection.scale(newScale);
+        render();
+      }, { passive: false });
+
+    })();
+  </script>
 
 </body>
 </html>

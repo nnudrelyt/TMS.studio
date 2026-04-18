@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Main Sequence &mdash; Studio</title>
+  <link rel="stylesheet" href="https://use.typekit.net/ixj4arx.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -15,9 +16,13 @@
 
     body {
       background: #C8D47A;
+      font-family: 'brandon-grotesque', 'Helvetica Neue', Helvetica, sans-serif;
+      -webkit-font-smoothing: antialiased;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 2.5rem;
       width: 100vw;
       height: 100vh;
     }
@@ -25,6 +30,7 @@
     #globe-wrap {
       position: relative;
       cursor: grab;
+      flex-shrink: 0;
     }
 
     #globe-wrap:active { cursor: grabbing; }
@@ -53,6 +59,15 @@
       0%, 100% { opacity: 0.4; }
       50%       { opacity: 1;   }
     }
+
+    h1 {
+      font-family: 'calvino', Georgia, serif;
+      font-size: clamp(36px, 5vw, 72px);
+      font-weight: 700;
+      line-height: 1.07;
+      color: #1A1710;
+      letter-spacing: -0.01em;
+    }
   </style>
 </head>
 <body>
@@ -61,6 +76,8 @@
     <canvas id="globe-canvas"></canvas>
     <div id="globe-loading"><span>Loading&hellip;</span></div>
   </div>
+
+  <h1>Coming Soon</h1>
 
   <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
   <script>
@@ -71,8 +88,8 @@
       const ctx     = canvas.getContext('2d');
       const dpr     = window.devicePixelRatio || 1;
 
-      const size   = Math.min(window.innerWidth, window.innerHeight);
-      const radius = size / 2.05;
+      const size   = Math.min(window.innerWidth * 0.88, window.innerHeight * 0.72);
+      const radius = size / 2;
 
       canvas.width  = size * dpr;
       canvas.height = size * dpr;
